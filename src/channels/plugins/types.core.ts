@@ -261,6 +261,9 @@ export type ChannelThreadingToolContext = {
   currentChannelProvider?: ChannelId;
   currentThreadTs?: string;
   currentMessageId?: string | number;
+  /** Preserved inbound user message ID — use for reactions so they target the
+   *  user message, not the assistant reply that may have updated currentMessageId. */
+  lastUserMessageId?: string | number;
   replyToMode?: "off" | "first" | "all";
   hasRepliedRef?: { value: boolean };
   /**

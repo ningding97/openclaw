@@ -26,12 +26,14 @@ export function buildThreadingToolContext(params: {
   if (!config) {
     return {
       currentMessageId,
+      lastUserMessageId: currentMessageId,
     };
   }
   const rawProvider = sessionCtx.Provider?.trim().toLowerCase();
   if (!rawProvider) {
     return {
       currentMessageId,
+      lastUserMessageId: currentMessageId,
     };
   }
   const provider = normalizeChannelId(rawProvider) ?? normalizeAnyChannelId(rawProvider);
@@ -42,6 +44,7 @@ export function buildThreadingToolContext(params: {
       currentChannelId: sessionCtx.To?.trim() || undefined,
       currentChannelProvider: provider ?? (rawProvider as ChannelId),
       currentMessageId,
+      lastUserMessageId: currentMessageId,
       hasRepliedRef,
     };
   }
@@ -65,6 +68,7 @@ export function buildThreadingToolContext(params: {
     ...context,
     currentChannelProvider: provider!, // guaranteed non-null since dock exists
     currentMessageId: context.currentMessageId ?? currentMessageId,
+    lastUserMessageId: currentMessageId,
   };
 }
 
