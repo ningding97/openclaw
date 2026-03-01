@@ -53,6 +53,12 @@ RUN pnpm ui:build
 
 # Expose the CLI binary without requiring npm global writes as non-root.
 USER root
+# Harden file permissions: extensions directories must not be world-writable
+# (otherwise the plugin loader rejects them at runtime).
+RUN find /app/extensions /app/.agent /app/.agents -type d -exec chmod 755 {} + 2>/dev/null; \
+    find /app/extensions /app/.agent /app/.agents -type f -exec chmod 644 {} + 2>/dev/null; \
+    true
+
 RUN ln -sf /app/openclaw.mjs /usr/local/bin/openclaw \
  && chmod 755 /app/openclaw.mjs
 
