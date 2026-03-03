@@ -198,7 +198,11 @@ export const dispatchTelegramMessage = async ({
           chatId,
           maxChars: draftMaxChars,
           thread: threadSpec,
-          previewTransport: useMessagePreviewTransportForDmReasoning ? "message" : "auto",
+          previewTransport: useMessagePreviewTransportForDmReasoning
+            ? "message"
+            : isGroup
+              ? "message"
+              : "draft",
           replyToMessageId: draftReplyToMessageId,
           minInitialChars: draftMinInitialChars,
           renderText: renderDraftPreview,

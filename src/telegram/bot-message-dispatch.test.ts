@@ -892,7 +892,7 @@ describe("dispatchTelegramMessage draft streaming", () => {
     expect(createTelegramDraftStream.mock.calls[0]?.[0]).toEqual(
       expect.objectContaining({
         thread: { id: 777, scope: "dm" },
-        previewTransport: "auto",
+        previewTransport: "draft",
       }),
     );
     expect(createTelegramDraftStream.mock.calls[1]?.[0]).toEqual(
